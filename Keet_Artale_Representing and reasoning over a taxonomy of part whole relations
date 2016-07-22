@@ -1,0 +1,46 @@
+Representing and reasoning over a taxonomy of part–whole relations
+C. Maria Keet and Alessandro Artale
+
+∀x(part_of (x, x)) (1) 
+
+∀x, y((part_of (x, y) ∧ part_of (y, x)) → x = y) (2) 
+
+∀x, y, z((part_of (x, y) ∧ part_of (y, z)) → part_of (x, z)) (3)
+
+∀x, y(proper_part_of (x, y) 􏵒 part_of (x, y) ∧ ¬part_of (y, x)) (4)
+
+∀x, y􏱕member_of n(x, y) 􏵒 mpart_of (x, y) ∧ (POB(x) ∨ SOB(x)) ∧ SOB(y)􏱖 (5)
+
+∀x,y􏱕constitutesit(x,y) ≡ constituted_ofit(y,x) 􏵒 mpart_of(x,y)∧POB(y)∧M(x)􏱖 (6)
+
+∀x,y􏱕sub_quantity_ofn(x,y) 􏵒 mpart_of(x,y)∧M(x)∧M(y)􏱖 (7)
+
+∀x, y􏱕participates_init(x, y) 􏵒 mpart_of (x, y) ∧ ED(x) ∧ PD(y)􏱖 (8)
+
+∀x, y􏱕involved_in(x, y) 􏵒 part_of (x, y) ∧ PD(x) ∧ PD(y)􏱖 (9)
+
+∀x, y􏱕contained_in(x, y) 􏵒 part_of (x, y) ∧ R(x) ∧ R(y)
+∧ ∃z, w(has_3D(z, x) ∧ has_3D(w, y) ∧ ED(z)∧ED(w))􏱖
+(10)
+
+∀x, y􏱕located_in(x, y) 􏵒 part_of (x, y) ∧ R(x) ∧ R(y)
+∧ ∃z, w(has_2D(z, x) ∧ has_2D(w, y) ∧ ED(z) ∧ ED(w))􏱖
+(11)
+
+∀x, y􏱕s_part_of (x, y) 􏵒 part_of (x, y) ∧ ED(x) ∧ ED(y)􏱖 (12)
+
+∀x, y􏱕s_part_of ′(x, y) 􏵒 part_of (x, y) ∧ POB(x) ∧ POB(y)􏱖 (13)
+
+∀x, y􏱕s_part_of ′′(x, y) 􏵒 part_of (x, y) ∧ NPOB(x) ∧ NPOB(y)􏱖 (14)
+
+overlap(x, y) 􏵒 ∃z(part_of (z, x) ∧ part_of (z, y)) (15)
+
+underlap(x, y) 􏵒 ∃z(part_of (x, z) ∧ part_of (y, z)) (16)
+
+overcross(x, y) 􏵒 overlap(x, y) ∧ ¬part_of (x, y) (17)
+
+undercross(x, y) 􏵒 underlap(x, y) ∧ ¬part_of (y, x) (18)
+
+proper_overlap(x, y) 􏵒 overcross(x, y) ∧ overcross(y, x) (19)
+
+proper_underlap(x, y) 􏵒 undercross(x, y) ∧ undercross(y, x) (20)
