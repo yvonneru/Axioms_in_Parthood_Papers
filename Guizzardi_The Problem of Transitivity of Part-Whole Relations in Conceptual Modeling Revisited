@@ -1,0 +1,19 @@
+The Problem of Transitivity of Part-Whole Relations in Conceptual Modeling Revisited
+Giancarlo Guizzardi
+
+Definition 1 (Direct Functional Part of type 1): 
+An individual x instance of X is a direct functional part of type 1 of an individual y of type Y (symbolized as d1(x,X,y,Y)) iff x is a part of y and x is individually functionally dependent of y. 
+Formally, 
+d1(x,X,y,Y) ≡ ((x < y) ∧ IFD(x,X,y,Y)).
+
+Definition 2 (Direct Functional Part of type 2): 
+An individual x instance of X is a direct functional part of type 2 of an individual y of type Y (symbolized as d2(x,X,y,Y)) iff x is a part of y and y is individually functionally dependent of x. 
+Formally, 
+d2(x,X,y,Y) ≡ (x < y) ∧ IFD(y,Y,x,X).
+
+Definition 3 (Indirect Functional Part of type 1): 
+i1(x,X,y,Y) ≡ (x < y) ∧ IIFD(x,X,y,Y). IIFD(x,X,y,Y) is the relation of individual indirect functional depen- dence and is defined as (7). 
+IIFD(x,X,y,Y) ≡ y::Y ∧ ∃Z (Subtype(Y,Z) ∧ IFD(x,X,y,Z)).
+
+Definition 4 (Indirect Functional Part of type 2): 
+i2(x,X,y,Y) ≡ (x < y) ∧ IIFD(y,Y,x,X).
