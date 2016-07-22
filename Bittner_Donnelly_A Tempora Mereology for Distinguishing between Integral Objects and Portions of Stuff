@@ -1,0 +1,95 @@
+A Tempora Mereology for Distinguishing between Integral Objects and Portions of Stuff
+Thomas Bittner and Maureen Donnelly
+
+***Only D, A and T excluded
+
+***
+Non-extensional temporal mereology
+***
+
+*
+Time-dependent parthood relations among material objects
+*
+
+D: symmetric
+all x all y all t (O(x,y,t) <-> (exists z(P(z,x,t) & P(z,y,t)))).
+
+D: proper part at t, asymmetric
+all x all y all t (PP(x,y,t) <-> (P(x,y,t) & (-(P(y,x,t))))).
+
+D: x exists at t if and only if x is a part of itself at t
+all x all t (E(x,t) <-> P(x,x,t)).
+
+D: (meq, approximation equiv; meqt, approx equiv t) 
+mereologically equivalent at t 
+symmetric and transitive
+iff x is a part of y at t and y is a part of x at t
+all x all y (meq(x,y) <-> (P(x,y,t) & P(y,x,t))).
+
+*
+Contstant and bound parts
+*
+
+D: Object x is a constant part of object y if and only if whenever y exists, x is a part of y
+reflexive and transitive.
+all x all y (CP(x,y) <-> (all t(E(y,t) -> P(x,y,t)))).
+
+D: Object x is a bound part of object y if and only whenever x exists, x is a part of y
+reflexive and transitive.
+all x all y (BP(x,y) <-> (all t(E(x,t) -> P(x,y,t)))).
+
+***
+Collections and time-dependent sums 
+***
+
+*
+Collections
+*
+
+D: subcollection: sub-collection, square supset
+reflexive, antisymmetric, and transi- tive (a partial ordering)
+in: belong
+all p all q (subcollection(p,q) <-> (all x(in(x,p) -> in(x,q)))).
+
+D: fp: a collection p is fully present at t if and only if all of its members exist at t
+all p all t (FP(p,t) <-> (all x(in(x,p) -> E(x,t)))).
+
+*
+Time-dependent sums
+*
+
+D: object z is a sum of (the members of) the collection p at time t, SM zpt, 
+if and only if p is fully present at t 
+and any object overlaps z at t if and only if it overlaps a member of p at t
+p sums to z at t or that z is a p-sum at t
+all z all p all t (SM(z,p,t) <-> 
+  (FP(p,t) & (all w(O(w,z,t) <-> (exists x(in(x,p) & O(x,w,t))))))).
+
+***
+Time-independent sums
+***
+
+*
+Constant sums
+*
+
+D: Object x is a constant sum of collection p (a constant p-sum) 
+if and only if whenever x exists, x is a sum of p
+all x all p (SMC(x,p) <-> (all t(E(x,t) -> SM(x,p,t)))).
+
+*
+Bound sums
+*
+
+Object x is a bound sum of collection p (a bound p-sum) 
+if and only if p is fully present at some time 
+and at all times at which p is fully present x is a sum of p
+all x all p (SMB(x,p) <-> (exists t(FP(p,t) & (all t(FP(p,t) -> SM(x,p,t)))))).
+
+*
+Permanent sums
+*
+
+Object x is a permanent sum of collection p (a permanent p-sum) 
+if and only if x is both a constant p-sum and a bound p-sum
+all x all p (SMP(x,p) <-> (SMC(x,p) & SMB(x,p))).
