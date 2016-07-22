@@ -1,0 +1,28 @@
+Introduction to part-whole relations: mereology, conceptual modelling and mathematical aspects
+C. Maria Keet
+
+part of(x,x) (1) // everything is part of itself
+
+(part of(x,y)∧part of(y,x))→x=y (2) // two distinct things cannot be part of each other, or:
+// if x is part of y and y is part of x, then x and y are the same thing
+
+(part of(x,y)∧part of(y,z))→part of(x,z) (3) // if x is part of y and y is part of z, then x is part of z
+
+proper part of(x,y)􏵒part of(x,y)∧¬part of(y,x) (4)
+Six more predicates can be introduced, of which overlap (5) and overcross (7) tend to be more often mentioned, although underlap (6) is more often used in e.g. bio- ontologies.
+
+overlap(x,y)􏵒∃z(part of(z,x)∧part of(z,y)) (5) // x and y ‘share’ a piece z (see also overcross); is reflexive and symmetric
+
+underlap(x,y)􏵒∃z(part of(x,z)∧part of(y,z)) (6)
+// x and y are both part of some z; is reflexive and symmetric
+
+overcross(x,y)􏵒overlap(x,y)∧¬part of(x,y) (7) // x and y overlap, but x is not a part of y
+
+undercross(x, y) 􏵒 underlap(x, y) ∧ ¬part of (y, x) (8) // x and y underlap, but y is not part of x
+
+proper overlap(x, y) 􏵒 overcross(x, y) ∧ overcross(y, x) (9) // combines proper parthood with overlap
+
+proper underlap(x, y) 􏵒 undercross(x, y) ∧ undercross(y, x) (10) // combines proper parthood with underlap
+
+proper part of(x,y)→∃z(part of(z,y)∧¬overlap(z,x)) (11) // weak supplementation: every proper part must be supplemented by another, disjoint, part ¬part of(y,x)→∃z(part of(z,y)∧¬overlap(z,x)) (12)
+// strong supplementation: if an object fails to include another among its parts, // then there must be a remainder
