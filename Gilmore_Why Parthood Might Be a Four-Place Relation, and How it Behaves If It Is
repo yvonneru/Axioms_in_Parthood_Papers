@@ -1,0 +1,11 @@
+Why Parthood Might Be a Four-Place Relation, and How it Behaves If It Is 1
+Cody Gilmore
+
+Intersection 
+r1INTr2 =df. ∃r3(r3⊑r1 & r3⊑r2)
+
+Composite 
+xCr1 =df. ∃y∃r2(yr2≪r1x)
+
+Delegation 
+∀x∀r1∀r2[(xCr1 & Rr1 & Rr2 & r2INTr1) → ∃y∃r3(yr3≪r1x & r2INTr3)]
