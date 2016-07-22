@@ -1,0 +1,55 @@
+Axioms for parthood and containment relations in bio-ontologies
+Thomas Bittner
+
+***
+partial orderings (leq <=, lessThan <, identical =)
+***
+
+D: improper partial ordering:
+all x all y (leq(x,y) <-> (lessThan(x,y) & identical(x,y))).
+
+D: overlap:
+all x all y (O(x,y) <-> (exists z (leq(z,x) & leq(z,y)))).
+
+A: proper partial ordering asymmetric:
+all x all y (lessThan(x,y) -> (-(lessThan(y,x)))).
+
+A: proper partial ordering transitive:
+all x all y all z ((lessThan(x,y) & lessThan(y,z)) -> lessThan(x,z)).
+
+T: proper partial ordering is irreflexive:
+all x (-(lessThan(x,x))).
+
+T: improper partial ordering reflexive:
+all x (leq(x,x)).
+
+T: improper partial ordering antisymmetric:
+all x all y ((leq(x,y) & leq(y,x)) -> identical(x,y)).
+
+T: improper partial ordering transitive:
+all x all y ((leq(x,y) & leq(y,z)) -> leq(x,y)).
+
+***
+Complexes (the entity x is a component(-part) of the entity y)
+(cp <cp, cpq <=cp)
+***
+
+A: asymmetry
+all x all y (cp(x,y) -> (-(cp(y,x)))).
+
+A: transitivity
+all x all y all z ((cp(x,y) & cp(y,z)) -> cp(x,z)).
+
+D: improper component- of relation
+all x all y (cpq(x,y) <-> (cp(x,y) | identical(x,y))).
+
+D: overlap
+all x all y (Ocp(x,y) <-> (exists z (cpq(z,x) & cpq(z,y)))).
+
+***
+tree structure (rootcp: the root of the tree structure, 
+Atcp: atomic compo- nents, i.e., entities without a component
+***
+
+D: (missing exist?)
+all x rootcp
