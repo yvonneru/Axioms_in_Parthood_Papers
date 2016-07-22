@@ -1,0 +1,67 @@
+Computational ontologies of parthood, componenthood, and containment
+Thomas Bittner and Maureen Donnelly
+
+***A and T excluded
+=df: <->
+
+***
+Binary Relations
+***
+
+*
+R-structures
+=: equal
+triangle: non-empty domain
+R: binary relation
+*
+
+D:
+all x all y (Requal(x,y) <-> (R(x,y) | equal(x,y))).
+
+D:
+all x all y (RO(x,y) <-> 
+  (Exists (in(z, domain)) (Requal(z,x) & Requal(z,y)))).
+
+D:
+all x all y (Ri(x,y) <->
+  (R(x,y) & (-(exists (in(z,domain)) (R(x,z) & R(z,y)))))).
+
+***
+A formal ontology of parthood, containment, and componenthood
+***
+
+*
+Axioms for PP
+*
+
+D:
+all x all y (PPequal(x,y) <-> (PP(x,y) | equal(x,y))).
+
+D:
+all x all y (PPO(x,y) <-> (exists z(PPequal(z,x) & PPequal(z,y)))).
+
+*
+Axioms for CmpOf: transitivity, asymmetric, discreteness, intransitive
+*
+
+D:
+all x all y (CmpOfequal(x,y) <-> (CmpOf(x,y) | equal(x,y))).
+
+D:
+all x all y (CmpOfO(x,y) <-> (exists z(CmpOfequal(z,x) & CmpOfequal(z,y)))).
+
+D:
+all x all y (CmpOfi(x,y) <-> (CmpOf(x,y) & (-(exists z(CmpOf(x,z) & CmpOf(z,y)))))).
+
+*
+Axioms for CntIn
+*
+
+D:
+all x all y (CntInequal(x,y) <-> (CntIn(x,y) | equal(x,y))).
+
+D:
+all x all y (CntInO(x,y) <-> (exists z(CntInequal(z,x) & CntInequal(z,y)))).
+
+D:
+all x all y (CntIni(x,y) <-> (CntIn(x,y) & (-(exists z(CntIn(x,z) & CntIn(z,y)))))).
