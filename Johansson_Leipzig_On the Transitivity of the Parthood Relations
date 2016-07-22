@@ -1,0 +1,29 @@
+On the Transitivity of the Parthood Relations
+Ingvar Johansson
+
+***Axioms only properties
+
+xAy ↔ (∃w)(xSw & wPy).
+
+y↔(∃w)(Cw&xLw&(x<S y)).
+
+xS/Py ↔ (∃w)(xSw & wPy), and
+xL/< y ↔ (∃w)(Cw & xLw & (x <S y))
+
+L/< is transitive if and only if necessarily: if xL/< y & yL/< z
+then xL/< z
+
+L/< is transitive 
+if and only if necessarily: 
+if[(∃w)(Cw&xLw&(x<S y))&(∃v)(Cv&yLv&(y<S z))] 
+then (∃u)(u=v & Cu & xLu & (x <S y)).
+
+‘xFyxM/<y’ and ‘xM/<y ↔(∃w)(Ay&xMw&(x<S y))’.
+
+x M/< y is transitive if and only if necessarily: 
+if[(∃w)(Ay&xMw&(x<S y))&(∃v)(Av&yMv&(y<S z))] 
+then (∃u)(u=v & Au & xMu & (x <S y)).
+
+‘xFyxM/<y’ and ‘xM/<y ↔(∃w)(By&xMw&(x<S y))’.
+
+
