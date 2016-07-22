@@ -1,0 +1,43 @@
+A Metamodel for Part Whole Relationships for Reasoning on Missing Parts and Reconstruction
+Doerr_Plexousakis_Bekiari
+
+***A,C,G excluded
+t1/T, r/P, c3/C
+
+***
+Token Level
+***
+
+D:
+all t1 all t2 (whole_of(t2,t1) <-> 
+  (part_of(t1,t2) & (-(exists t3(part_of(t2,t3) & notequal(t2,t3)))))).
+
+D:
+all t1 (non_shared(t1) <-> 
+  (all t2 all t3 ((whole_of(t2,t1) & whole_of(t3,t1)) -> equal(t2,t3)))).
+
+D:
+all t1 all t2 (fswa(t1,t2) <-> (exists t3 (part_of(t1,t3) & part_of(t2,t3)))).
+
+***
+Schema Level
+***
+
+D:
+all c1 all c2 (part_type_of(c1,c2) <-> (exists r(r(c1,c2) & IsA(r,part_of)))).
+
+D:
+all c1 all c2 (whole_type_of(c1,c2) <-> 
+  (part_type_of(c2,c1) & (-(exists c3 (part_type_of(c1,c3) & notequal(c1,c3)))))).
+
+D:
+all c1 (type_conforming(c1) <-> 
+  (all t1 (instance_of(t1,c1) -> 
+    (exists c2 exists t2 (whole_type_of(c2,c1) & whole_of(t2,t1) & instance_of(t2,c2)))))).
+
+***
+Token-Schema level
+***
+
+D:
+all t1 all c2 (gpart_of(t1,c2) <-> (exists t2 (instance_of(t2,c2) & part_of(t1,t2)))).
