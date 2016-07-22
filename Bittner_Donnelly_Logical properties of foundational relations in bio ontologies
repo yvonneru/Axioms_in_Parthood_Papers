@@ -1,0 +1,64 @@
+Logical properties of foundational relations in bio-ontologies
+Thomas Bittner, Maureen Donnelly
+
+***Properties excluded
+
+***
+Binary Relations
+***
+
+*
+Binary relations as sets of ordered pairs
+*
+
+D:
+all x all y (Requal(x,y) <-> (R(x,y) | equal(x,y))).
+
+D:
+all x all y (RO(x,y) <-> 
+  (Exists (in(z, domain)) (Requal(z,x) & Requal(z,y)))).
+
+D:
+all x all y (Ri(x,y) <->
+  (R(x,y) & (-(exists (in(z,domain)) (R(x,z) & R(z,y)))))).
+
+***
+A formal ontology of nested parthood structures
+***
+
+*
+Axioms for PP
+*
+
+D:
+all x all y (PPequal(x,y) <-> (PP(x,y) | equal(x,y))).
+
+D:
+all x all y (PPO(x,y) <-> (exists z(PPequal(z,x) & PPequal(z,y)))).
+
+*
+Axioms for SurrBy
+*
+
+D:
+all x all y (SurrByequal(x,y) <-> (SurrBy(x,y) | equal(x,y))).
+
+D:
+all x all y (SurrByO(x,y) <-> (exists z(SurrByequal(z,x) & SurrByequal(z,y)))).
+
+D:
+all x all y (SurrByi(x,y) <-> (SurrBy(x,y) & (-(exists z(SurrBy(x,z) & SurrBy(z,y)))))).
+
+*
+Axioms for SdOf1; . . . ; SdOfn
+*
+
+D:
+all x all y (SdOfkequal(x,y) <-> (SdOfk(x,y) | equal(x,y))).
+
+D:
+all x all y (SdOfkO(x,y) <-> (exists z(SdOfkequal(z,x) & SdOfkequal(z,y)))).
+
+D:
+all x all y (SdOfki(x,y) <-> (SdOfk(x,y) & (-(exists z(SdOfk(x,z) & SdOfk(z,y)))))).
+
