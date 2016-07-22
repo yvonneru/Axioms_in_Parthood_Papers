@@ -1,0 +1,66 @@
+Layered Mereotopology
+Maureen Donnelly
+
+***
+Layered Mereology
+***
+
+*
+Axioms and basic definitions of Layered Mereology
+*
+
+(D1) PPxy =: Pxy & ∼Pyx (x is a proper part of y)
+(D2) Oxy =: ∃z (Pzx & Pzy) (x and y overlap)
+(D3) Uxy =: ∃z (Pxz & Pyz) (x and y underlap)
+(D4) Lyz =: z􏱓x(Uxy)
+(z is y’s layer: z is the sum of all objects that y underlaps)
+
+*
+Layers and maximal individuals
+*
+
+(D5) LYz =: ∃x Lxz (z is a layer)
+
+(D6) MIz=:∀x(Oxz→Pxz)
+(z is a maximal individual: for all x, if x overlaps z, then x is part of z)
+
+*
+Additional mereological relations
+*
+
+(D7) +(v,y,z)=:z􏱓x(Pxv∨Pxy) (z is the binary sum of v and y)
+(D8) ×(v,y,z)=:z􏱓x(Pxv&Pxy) (z is the binary product of v and y)
+(D9) −(v,y,z)=:z􏱓x(Pxy&∼Oxv) (z is the difference of v in y)
+(D10) -(v,z)=:z􏱓x(Uxv&∼Oxv) (z is the relative complement of v)
+
+***
+The region function
+***
+
+(D11) Ry=:∃x(r(x)=y) (y is a region)
+
+(D12) CCoin(x,y)=:r(x)=r(y) (x and y completely coincide)
+(D13) Cov(x,y)=:Pr(x)r(y) (x is covered by y)
+(D14) Coin(x,y)=:Or(x)r(y) (x and y coincide)
+
+***
+Layered Mereotopology
+***
+
+(D16) Mxy=:Cr(x)r(y)
+(x and y meet: their regions are connected)
+(D17) Axy=:ECr(x)r(y)
+(x and y abut: their regions are externally connected)
+
+(D18) TPxy =: Pxy & ∃z(Azx & Azy)
+(x is a tangential part of y: x is part of y and 
+there is some z such that z abuts both x and y)
+
+(D19) IPxy=:Pxy&∼TPxy (x is an interior part of y)
+It may be useful to add cross-layer counterparts of the tangential part and interior part relations:
+(D20) TCov(x,y)=:TPr(x)r(y)
+(x is t-covered by y: x’s region is a tangential part of y’s region)
+(D21) ICov(x,y)=:IPr(x)r(y)
+(x is i-covered by y: x’s region is an interior part of y’s region)
+
+(D22) INT(y,z)=:z􏱓x(IPxy) (z is the interior of y)
