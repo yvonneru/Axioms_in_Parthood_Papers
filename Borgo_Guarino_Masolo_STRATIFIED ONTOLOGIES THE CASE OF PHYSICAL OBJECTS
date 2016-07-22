@@ -1,0 +1,154 @@
+STRATIFIED ONTOLOGIES: THE CASE OF PHYSICAL OBJECTS
+Stefano Borgo, Nicola Guarino, and Claudio Masolo
+
+***D only, A excluded
+D1-D5 missing from paper?
+=df: <->
+
+***
+Space
+***
+
+*
+TOPOLOGICAL LEVEL
+*
+
+D: (proper overlap)
+all x all y (PO(x,y) <-> (O(x,y) & (-(P(x,y))) & (-(P(y,x))))).
+
+D: (interior part)
+all x all y (IP(x,y) <-> (R(x) & PP(x,y) & (all z ((SR(z) & (PO(z,x))) -> O(z)(y-x))))).
+
+D: (maximally connected part)
+all x all y (MCP(x,y) <-> (P(x,y) & SR(x) & (-(exists z (SR(z) & PP(x,z) & P(z,y)))))).
+
+D:
+all x all y (SC(x,y) <-> (exists u exists v (P(u,x) & P(v,y) & SR(u+v)))).
+
+*
+MORPHOLOGICAL LEVEL
+*
+
+*Defining Spheres
+
+D:
+all x (SPH(x) <-> (SR(x) & (all y((CG(x,y) & PO(x,y)) -> SR(x-y))))).
+
+*Tarski’s definitions
+
+D11. 
+ETxy =df ¬Oxy ∧ ((¬Ouy ∧ ¬Ovy ∧ Pxu ∧ Pxv) → (Puv ∨ Pvu)) 
+(x is externally tangent to y)
+
+D12. 
+ITxy =df PPxy ∧ ((Puy ∧ Pvy ∧ Pxu ∧ Pxv) → (Puv ∨ Pvu)) 
+(x is internally tangent to y)
+
+D13. 
+EDxyz =df ETxz ∧ ETyz ∧ (¬Ouz ∧ ¬Ovz ∧ Pxu ∧ Pyv → ¬Ouv)
+(x and y are externally diametrical w.r.t. z)
+
+D14. 
+IDxyz =df ITxz ∧ ITyz ∧ (¬Ouz ∧ ¬Ovz ∧ ETxu ∧ ETyv → ¬Ouv)
+(x and y are internally diametrical w.r.t. z)
+
+D15. 
+CNCxy =df x = y ∨ (PPxy ∧ (EDuvx ∧ ITuy ∧ ITvy → IDuvy)) 
+  ∨ (PPyx ∧ (EDuvy ∧ ITux ∧ ITvx → IDuvx)) 
+(x is concentric with y)
+
+*Alignment of spheres
+
+D16. 
+BTWxyz =df ∃x'y'z’(CNCxx’ ∧ CNCyy’ ∧ CNCzz’ ∧ EDy’z’x’) 
+(x is between y and z)
+
+D17. 
+LINxyz = df BTWxyz ∨ BTWyxz ∨ BTWzxy
+
+D18. 
+SSDxyz = df BTWxyz ∨ BTWyxz ∨ CNCxy
+
+D19. 
+SEGxy = df ¬CNCxy
+
+D20. 
+TRIxyz =df ¬CNCxy ∧ ¬CNCyz ∧ ¬CNCxz ∧ ¬LINxyz
+(x, y, and z form an s-triangle)
+
+*Reconstructing Standard Axioms for Congruence
+
+D21. 
+PNPxyz...=df (¬ Pxy ∧ ¬Pxz ∧...) ∧ (¬Pyx ∧ ¬Pyz ∧...) ∧ (¬Pzx ∧ ¬Pzy ∧...) ∧...
+(pairwise not part)
+
+*Using the Congruence Primitive
+
+D22.
+LCxy =df ¬SCxy ∧ ∃z (SPHz ∧ SR(z-x) ∧ SR(z-y) ∧ ¬SR(z-(x+y))) 
+
+D23. 
+PCxy =df ¬SCxy ∧ ¬LCxy ∧ ∃z(SPHz ∧ ∀u(CNCuz → (Oux ∧ Ouy))) 
+
+D24. 
+Cxy =df SCxy ∨ LCxy ∨ PCxy
+(l-connection) (p-connection) (connection)
+
+D25. 
+CONVx =df (P(u+v)x ∧ CGuv ∧ CGwu ∧ BTWwuv) → Pwx 
+(x is convex)
+
+***
+MATTER AND PHYSICAL OBJECTS
+***
+
+D26. 
+EXxs = df ∃r LOCrxs
+
+***
+ONTOLOGICAL DISTINCTIONS AMONG PHYSICAL OBJECTS
+***
+
+*
+GENERAL PROPERTIES
+*
+
+D27. 
+MOx =df OBx ∧ (EXxs → ∃m MATmxs) 
+
+D28. 
+IOx =df OBx ∧ (EXxs → ¬∃m MATmxs)
+
+D29. 
+CPxys =df ((IOx ∧ IOy) ∨ (MOx ∧ MOy)) ∧ LOCuxs ∧ LOCvys ∧ Puv 
+(contingent part) 
+
+D30. 
+ESPxy =df EXys → CPxys 
+(essential part)
+
+D31. 
+CCDxys =df∀z (CPzxs ↔ CPzys) 
+(coincidence)
+
+D32. 
+RIGx =df OBx ∧ (LOCuxs ∧ LOCvxs’ → CGuv) 
+(rigidity)
+
+*
+BOUNDARIES AND GRANULARITY
+*
+
+D33. 
+Gxg =df SPHg ∧ CGxg
+
+D34.
+SBxyg=df Rx∧Ry∧∀z(Pzx↔∀w(Pwz→∃u(Gug ∧Ouw∧POuy)))
+(x is the spatial boundary of y at granularity g)
+
+D35. 
+PBxyg =df IOx ∧ OBy ∧ ((LOCuxs ∧ LOCvys) → SBuvg)
+(x is the physical boundary of y at granularity g)
+
+D36. 
+SURFxyg =df CPxys ∧ ((LOCuxs ∧ LOCvys ∧ SBwvg) → u=v×w)
