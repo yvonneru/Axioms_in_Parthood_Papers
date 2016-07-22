@@ -1,0 +1,33 @@
+Quasi-Supplementation, Plenitudinous Coincidentalism, and Gunk
+Cody Gilmore
+
+(D1) O(x, y) =df. ∃z[P(z, x) & P(z, y)]
+
+(D2) F(x, s) =df. ∀y[y∈s → P(y, x)] & ∀y[P(y, x) → ∃z[z∈s & O(y, z)]
+Fusion
+
+(D3) D(x, y) =df. ~O(x, y) 
+Disjointness
+
+(D4) PPNI(x, y) =df. P(x, y) & x≠y 
+ProperNI Parthood
+
+(D4) PPNM(x, y) =df. P(x, y) & ~P(y, x) ProperNM Parthood
+
+(D5) CO(x, y) =df. ∀z[O(x, z) ↔ O(y, z)] Coincidence
+
+(D6) G(x) =df. ∀y[P(y, x) → ∃z(PPNI(z, y))] Gunkiness
+
+(D7) SG(x) =df. ∀y[P(y, x) → Strong Gunkiness ∃z∃w(PPNI(z, y) & PPNI(w, y) & D(z, w))]
+
+(D8) SS(x) =df. ~∃yPPNI(y, x)
+Strong Simplicity
+
+(D9) PPH(x, y) =df. P(x, y) & ∃z[P(z, y) & D(z, x) ] 
+ProperH Parthood
+
+(D10) HS(x) =df. ~∃yPPH(y, x)
+Hawthorne Simplicity
+
+
+
