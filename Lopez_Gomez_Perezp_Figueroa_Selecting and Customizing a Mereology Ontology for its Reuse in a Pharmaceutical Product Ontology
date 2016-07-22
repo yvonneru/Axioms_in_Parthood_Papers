@@ -1,0 +1,20 @@
+Selecting and Customizing a Mereology Ontology for its Reuse in a Pharmaceutical Product Ontology
+
+Mariano FERNÁNDEZ-LÓPEZ , Asunción GÓMEZ-PÉREZPb, 2 , Mari Carmen
+SUÁREZ-FIGUEROA 
+
+D1) Proper part. A proper part is a part that is other than the individual itself. For example, Spain is a proper part of EU, since Spain is part of EU and they are different entities.
+D2) Direct part. X is a direct part of y if and only if x is a proper part of y and there is
+no part between x and y 3 . For example, Italy is a direct part of EU, but Madrid is
+TP PT
+not, since Madrid is part of EU through Spain.
+D3) Overlap. The relation overlap is defined as a sharing part. That is, x and y overlap if and only if there is a z such that z is part of x and part of y. For instance, Spain and Africa overlap, since Spain has territories in Africa (Canaries, Ceuta, Melilla, etc.).
+D4) Underlap. The relation underlap is defined as a sharing whole. That is, x and y underlap if and only if there is a z such that x and y are parts of z. For example, Portugal, Spain, France and Italy underlap because they share a common whole: EU.
+D5) Disjoint. The disjoint relation is the logical negation of overlaps. For example, EU and USA territories are disjoint.
+
+D6) Binary sum. X + y is the z that fulfils that for all w’s , w overlaps z if and only if w overlaps x or w overlaps y. That is, x + y is the smallest object of which x and y are part.
+D7) Binary product. X . y is the z that fulfils that for all w’s, w is part of z if and only if w is part of x and w is part of y. That is, X . y is the largest object that is part of x and y.
+
+D8) General sum. The general sum of all x’s satisfying φ is that z that for every y, it overlaps z if and only if there is an x such that it satisfies φ and overlaps y. That is, the sum of φs is the entity that consists of all entities that satisfy φ.
+
+D9) Atom. It is an element that does not have proper parts.
