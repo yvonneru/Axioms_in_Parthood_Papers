@@ -1,0 +1,33 @@
+Containment Relations in Anatomical Ontologies
+Maureen Donnelly
+
+Proper Parthood: x is a proper part of y if x is any part of y other than y itself. 
+Symbolically:
+PPxy =: Pxy & x ≠ y.
+
+Overlap: x and y overlap if there is some object, z, that is part of both x and y. 
+Symbolically: 
+Oxy =: ∃z (Pzx & Pzy).
+
+Region Containment: x is r-contained in y if x’s region is part of y’s region. 
+Symbollically:
+CNT-INrxy =: Pr(x)r(y).
+
+Surround Containment: x is s-contained in y if x’s region is part of y’ s convex hull 
+and x’ s region does not overlap y’ s region. 
+Symbolically:
+CNT-INsxy =: Pr(x)ch(y) & ∼Or(x)r(y)
+
+General Containment: x is g-contained in y if x’s region is part of y’s convex hull. 
+Symbolically:
+CNT-INgxy =: Pr(x)ch(y).
+
+Partial Containment x is partially contained in y if x’s region overlaps y’s convex hull. 
+Symbolically:
+P-CNT-INxy =: Or(x)ch(y).
+
+Material-Region Containment: x is mr-contained in y 
+if x is material, y is immaterial, and x’s region is part of y’s region. 
+Symbolically:
+CNT-INmrxy =: Mx & IMy & Pr(x)r(y).
+
