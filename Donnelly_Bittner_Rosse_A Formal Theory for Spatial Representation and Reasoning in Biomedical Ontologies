@@ -1,0 +1,16 @@
+A Formal Theory for Spatial Representation and Reasoning in Biomedical Ontologies
+Maureen Donnelly , Thomas Bittner , Cornelius Rosse
+
+Proper Parthood: x is a proper part of y, if x is any part of y other than y itself. 
+Symbolically: PPxy =: Pxy & x ≠ y.
+
+Overlap: x and y overlap, if there is some object, z, that is part of both x and y. 
+Symbolically: Oxy =: ∃z (Pzx & Pzy).
+
+Located In: x is located in y if x’s region is part of y’s region. 
+Symbolically: Loc-In(x, y) =: Pr(x)r(y).
+
+Partial Coincidence: x and y partially coincide if x’s spatial region and y’s spatial region overlap. 
+Symbolically: PCoin(x, y) =: Or(x)r(y) .
+
+Inverse Relations: Inverses of the relations above may be introduced
