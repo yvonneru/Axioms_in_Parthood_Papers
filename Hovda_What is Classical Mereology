@@ -1,0 +1,19 @@
+What is Classical Mereology? 
+Paul Hovda
+
+1.1.1 Schematic Type-1 Fusion
+Fu1(t,[x|φ(x)]) abbreviates ∀y(y◦t↔∃x(φ(x)∧y◦x))
+abbreviates
+Fu1(a, [x | ∃z(Cat(z) ∧ Loves(x, z))])
+∀y(y ◦ a ↔ ∃x(∃z(Cat(z) ∧ Loves(x, z)) ∧ y ◦ x))
+
+1.1.2 Type-2 Fusion
+Fu2(t, [x | φ(x)])
+
+1.2.1 Set-theoretic Type-2 Fusion
+Fu2(t, s) abbreviates
+∀x(x ∈ s → x ≤ t) ∧ ∀y(y ≤ t → ∃x(x ∈ s ∧ y ◦ x))
+
+1.3.1 Min Upper Bound
+Mub(t,φx) abbreviates
+∀x(φx →x≤t)∧∀w(∀x(φx →x≤w)→t≤w)
