@@ -52,4 +52,36 @@ Atcp: atomic compo- nents, i.e., entities without a component
 ***
 
 D: (missing exist?)
-all x rootcp
+all x (rootcp(x) <-> (all y(cpq(y,x)))).
+
+D:
+all x (Atcp(x) <-> (-(exists y(cp(y,x))))).
+
+A: every component-tree has a root
+exists x (rootcp(x)).
+
+A: no-partial- overlap principle (NPO). 
+It rules out the possibility of partial overlap of components:
+if the complexes and share a common component then:
+either x is a component of y, or x and y are identical, or y is a component of x
+all x all y (Ocp(x,y) -> (cpq(x,y) | cp(y,x))).
+
+A5: if x is a component of y then there exists a component z of y
+such that x and z do not overlap
+all x all y (cp(x,y) -> (exists z(cp(z,y) & (-(Ocp(x,z)))))).
+
+***A6 and forward A, T are not included in the following.
+
+***
+Containment (irreflexive, asymmetric, transitive)
+(ct: <ct, the entity x is contained in the entity y
+ctq: <=ct)
+***
+
+D: 
+all x (rootct(x) <-> (all y(ctq(y,x)))).
+
+D:
+all x (Atct(x) <-> (-(exists y(ct(y,x))))).
+
+***A and T not included
