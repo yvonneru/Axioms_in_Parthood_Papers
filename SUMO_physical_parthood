@@ -1,0 +1,880 @@
+(cl-text "Base Ontology"
+	(cl-imports "Structural Ontology")
+	(partition Entity Physical Abstract)
+	(documentation Entity EnglishLanguage "The universal class of individuals. This is the root node of the ontology.")
+
+	(forall
+		(THING)
+		(instance THING Entity))
+
+	(exists
+		(THING)
+		(instance THING Entity))
+
+	(iff
+		(instance CLASS Class) 
+		(subclass CLASS Entity))
+
+	(subclass Physical Entity)
+	(partition Physical Object Process)
+	(documentation Physical EnglishLanguage "An entity that has a location in space-time. Note that locations are themselves understood to have a location in space-time.")
+
+	(iff
+		(instance PHYS Physical) 
+		(exists
+			(LOC TIME)
+			(and
+				(located PHYS LOC)
+				(time PHYS TIME))))
+
+	(subclass Object Physical)
+	(documentation Object EnglishLanguage "Corresponds roughly to the class of ordinary objects. Examples include normal physical objects, geographical regions, and locations of Processes, the complement of Objects in the Physical class. In a 4D ontology, an Object is something whose spatiotemporal extent is thought of as dividing into spatial parts roughly parallel to the time-axis.")
+	(subclass SelfConnectedObject Object)
+	(documentation SelfConnectedObject EnglishLanguage "A SelfConnectedObject is any Object that does not consist of two or more disconnected parts.")
+	(instance FrontFn SpatialRelation)
+	(instance FrontFn PartialValuedRelation)
+	(instance FrontFn UnaryFunction)
+	(instance FrontFn AsymmetricRelation)
+	(instance FrontFn IrreflexiveRelation)
+	(domain FrontFn 1 SelfConnectedObject)
+	(range FrontFn SelfConnectedObject)
+	(documentation FrontFn EnglishLanguage "A Function that maps an Object to the side that generally receives the most attention or that typically faces the direction in which the Object moves. Note that this is a partial function, since some Objects do not have sides, e.g. apples and spheres. Note too that the range of this Function is indefinite in much the way that ImmediateFutureFn and ImmediatePastFn are indefinite. Although this indefiniteness is undesirable from a theoretical standpoint, it does not have significant practical implications, since there is widespread intersubjective agreement about the most common cases.")
+
+	(if
+		(instance OBJ SelfConnectedObject)
+		(side (FrontFn OBJ) OBJ))
+
+	(instance BackFn SpatialRelation)
+	(instance BackFn PartialValuedRelation)
+	(instance BackFn UnaryFunction)
+	(instance BackFn AsymmetricRelation)
+	(instance BackFn IrreflexiveRelation)
+	(domain BackFn 1 SelfConnectedObject)
+	(range BackFn SelfConnectedObject)
+	(documentation BackFn EnglishLanguage "A Function that maps an Object to the side that is opposite the FrontFn of the Object. Note that this is a partial function, since some Objects do not have sides, e.g. apples and spheres. Note too that the range of this Function is indefinite in much the way that ImmediateFutureFn and ImmediatePastFn are indefinite. Although this indefiniteness is undesirable from a theoretical standpoint, it does not have significant practical implications, since there is widespread intersubjective agreement about the most common cases.")
+
+	(if
+		(instance OBJ SelfConnectedObject)
+		(side (BackFn OBJ) OBJ))
+
+	(instance part SpatialRelation)
+	(instance part PartialOrderingRelation)
+	(domain part 1 Object)
+	(domain part 2 Object)
+	(documentation part EnglishLanguage "The basic mereological relation. All other mereological relations are defined in terms of this one. (part PART WHOLE) simply means that the Object PART is part of the Object WHOLE. Note that, since part is a ReflexiveRelation, every Object is a part of itself.")
+	(instance properPart AsymmetricRelation)
+	(instance properPart TransitiveRelation)
+	(subrelation properPart part)
+	(documentation properPart EnglishLanguage "(properPart OBJ1 OBJ2) means that OBJ1 is a part of OBJ2 other than OBJ2 itself. This is a TransitiveRelation and AsymmetricRelation (hence an IrreflexiveRelation).")
+
+	(iff
+		(properPart OBJ1 OBJ2) 
+		(and
+			(part OBJ1 OBJ2)
+			(not
+				(part OBJ2 OBJ1))))
+
+	(subrelation piece part)
+	(domain piece 1 Substance)
+	(domain piece 2 Substance)
+	(documentation piece EnglishLanguage "A specialized common sense notion of part for arbitrary parts of Substances. Quasi-synonyms are: chunk, hunk, bit, etc. Compare component, another subrelation of part.")
+
+	(if
+		(piece SUBSTANCE1 SUBSTANCE2)
+		(forall
+			(CLASS)
+			(if
+				(instance SUBSTANCE1 CLASS)
+				(instance SUBSTANCE2 CLASS))))
+
+	(subrelation component part)
+	(domain component 1 CorpuscularObject)
+	(domain component 2 CorpuscularObject)
+	(documentation component EnglishLanguage "A specialized common sense notion of part for heterogeneous parts of complexes. (component COMPONENT WHOLE) means that COMPONENT is a component of WHOLE. Examples of component include the doors and walls of a house, the states or provinces of a country, or the limbs and organs of an animal. Compare piece, which is also a subrelation of part.")
+	(instance material BinaryPredicate)
+	(domainSubclass material 1 Substance)
+	(domain material 2 CorpuscularObject)
+	(documentation material EnglishLanguage "(material SUBSTANCE OBJECT) means that OBJECT is structurally made up in part of SUBSTANCE. This relation encompasses the concepts of 'composed of', 'made of', and 'formed of'. For example, plastic is a material of my computer monitor. Compare part and its subrelations, viz component and piece.")
+	(subrelation contains partlyLocated)
+	(instance contains SpatialRelation)
+	(instance contains AsymmetricRelation)
+	(disjointRelation contains part)
+	(domain contains 1 SelfConnectedObject)
+	(domain contains 2 Object)
+	(documentation contains EnglishLanguage "The relation of spatial containment for two separable objects. When the two objects are not separable (e.g. an automobile and one of its seats), the relation of part should be used. (contains OBJ1 OBJ2) means that the SelfConnectedObject OBJ1 has a space (i.e. a Hole) which is at least partially filled by OBJ2.")
+
+	(iff
+		(contains OBJ1 OBJ2) 
+		(exists
+			(HOLE)
+			(and
+				(hole HOLE OBJ1)
+				(properlyFills OBJ2 HOLE))))
+
+	(subclass Substance SelfConnectedObject)
+	(partition Substance PureSubstance Mixture)
+	(partition Substance SyntheticSubstance NaturalSubstance)
+	(documentation Substance EnglishLanguage "An Object in which every part is similar to every other in every relevant respect. More precisely, something is a Substance when it has only arbitrary pieces as parts - any parts have properties which are similar to those of the whole. Note that a Substance may nonetheless have physical properties that vary. For example, the temperature, chemical constitution, density, etc. may change from one part to another. An example would be a body of water.")
+
+	(if
+		(and
+			(subclass OBJECTTYPE Substance)
+			(instance OBJECT OBJECTTYPE)
+			(part PART OBJECT))
+		(instance PART OBJECTTYPE))
+
+	(if
+		(and
+			(instance OBJ Substance)
+			(attribute OBJ ATTR)
+			(part PART OBJ))
+		(attribute PART ATTR))
+
+	(subclass SyntheticSubstance Substance)
+	(documentation SyntheticSubstance EnglishLanguage "Any Substance that is the result of an IntentionalProcess, i.e. any substance that is created by Humans.")
+
+	(iff
+		(instance SUBSTANCE SyntheticSubstance) 
+		(exists
+			(PROCESS)
+			(and
+				(instance PROCESS IntentionalProcess)
+				(result PROCESS SUBSTANCE)
+				(instance SUBSTANCE Substance))))
+
+	(subclass NaturalSubstance Substance)
+	(documentation NaturalSubstance EnglishLanguage "Any Substance that is not the result of an IntentionalProcess, i.e. any substance that occurs naturally.")
+	(subclass PureSubstance Substance)
+	(partition PureSubstance CompoundSubstance ElementalSubstance)
+	(documentation PureSubstance EnglishLanguage "The Class of Substances with constant composition. A PureSubstance can be either an element (ElementalSubstance) or a compound of elements (CompoundSubstance). Examples: Table salt (sodium chloride, NaCl), sugar (sucrose, C_{12}H_{22}O_{11}), water (H_2O), iron (Fe), copper (Cu), and oxygen (O_2).")
+	(subclass ElementalSubstance PureSubstance)
+	(documentation ElementalSubstance EnglishLanguage "The Class of PureSubstances that cannot be separated into two or more Substances by ordinary chemical (or physical) means. This excludes nuclear reactions. ElementalSubstances are composed of only one kind of atom. Examples: Iron (Fe), copper (Cu), and oxygen (O_2). ElementalSubstances are the simplest PureSubstances.")
+	(subclass Metal ElementalSubstance)
+	(documentation Metal EnglishLanguage "A Metal is an ElementalSubstance that conducts heat and electricity, is shiny and reflects many colors of light, and can be hammered into sheets or drawn into wire. About 80% of the known chemical elements (ElementalSubstances) are metals.")
+	(subclass Atom ElementalSubstance)
+	(documentation Atom EnglishLanguage "An extremely small unit of matter that retains its identity in Chemical reactions. It consists of an AtomicNucleus and Electrons surrounding the AtomicNucleus.")
+
+	(if
+		(instance ATOM Atom)
+		(exists
+			(PROTON ELECTRON)
+			(and
+				(component PROTON ATOM)
+				(component ELECTRON ATOM)
+				(instance PROTON Proton)
+				(instance ELECTRON Electron))))
+
+	(if
+		(instance ATOM Atom)
+		(forall
+			(NUCLEUS1 NUCLEUS2)
+			(if
+				(and
+					(component NUCLEUS1 ATOM)
+					(component NUCLEUS2 ATOM)
+					(instance NUCLEUS1 AtomicNucleus)
+					(instance NUCLEUS2 AtomicNucleus))
+				(=
+					NUCLEUS1
+					NUCLEUS2))))
+
+	(subclass SubatomicParticle ElementalSubstance)
+	(documentation SubatomicParticle EnglishLanguage "The class of ElementalSubstances that are smaller than Atoms and compose Atoms.")
+
+	(if
+		(instance PARTICLE SubatomicParticle)
+		(exists
+			(ATOM)
+			(and
+				(instance ATOM Atom)
+				(part PARTICLE ATOM))))
+
+	(subclass AtomicNucleus SubatomicParticle)
+	(documentation AtomicNucleus EnglishLanguage "The core of the Atom. It is composed of Protons and Neutrons.")
+
+	(if
+		(instance NUCLEUS AtomicNucleus)
+		(exists
+			(NEUTRON PROTON)
+			(and
+				(component NEUTRON NUCLEUS)
+				(component PROTON NUCLEUS)
+				(instance NEUTRON Neutron)
+				(instance PROTON Proton))))
+
+	(subclass Electron SubatomicParticle)
+	(documentation Electron EnglishLanguage "SubatomicParticles that surround the AtomicNucleus. They have a negative charge.")
+	(subclass Proton SubatomicParticle)
+	(documentation Proton EnglishLanguage "Components of the AtomicNucleus. They have a positive charge.")
+	(subclass Neutron SubatomicParticle)
+	(documentation Neutron EnglishLanguage "Components of the AtomicNucleus. They have no charge.")
+	(subclass CompoundSubstance PureSubstance)
+	(documentation CompoundSubstance EnglishLanguage "The Class of Substances that contain two or more elements (ElementalSubstances), in definite proportion by weight. The composition of a pure compound will be invariant, regardless of the method of preparation. Compounds are composed of more than one kind of atom (element). The term molecule is often used for the smallest unit of a compound that still retains all of the properties of the compound. Examples: Table salt (sodium chloride, NaCl), sugar (sucrose, C_{12}H_{22}O_{11}), and water (H_2O). ")
+	(subclass Mixture Substance)
+	(documentation Mixture EnglishLanguage "A Mixture is two or more PureSubstances, combined in varying proportions - each retaining its own specific properties. The components of a Mixture can be separated by physical means, i.e. without the making and breaking of chemical bonds. Examples: Air, table salt thoroughly dissolved in water, milk, wood, and concrete. ")
+
+	(if
+		(instance MIXTURE Mixture)
+		(exists
+			(PURE1 PURE2)
+			(and
+				(instance PURE1 PureSubstance)
+				(instance PURE2 PureSubstance)
+				(not
+					(=
+						PURE1
+						PURE2))
+				(part PURE1 MIXTURE)
+				(part PURE2 MIXTURE))))
+
+	(if
+		(and
+			(instance MIXTURE Mixture)
+			(part SUBSTANCE MIXTURE)
+			(not
+				(instance SUBSTANCE Mixture)))
+		(instance SUBSTANCE PureSubstance))
+
+	(subclass CorpuscularObject SelfConnectedObject)
+	(disjoint CorpuscularObject Substance)
+	(documentation CorpuscularObject EnglishLanguage "A SelfConnectedObject whose parts have properties that are not shared by the whole.")
+
+	(if
+		(instance OBJ CorpuscularObject)
+		(exists
+			(SUBSTANCE1 SUBSTANCE2)
+			(and
+				(subclass SUBSTANCE1 Substance)
+				(subclass SUBSTANCE2 Substance)
+				(material SUBSTANCE1 OBJ)
+				(material SUBSTANCE2 OBJ)
+				(not
+					(=
+						SUBSTANCE1
+						SUBSTANCE2)))))
+
+	(subclass Region Object)
+	(documentation Region EnglishLanguage "A topographic location. Regions encompass surfaces of Objects, imaginary places, and GeographicAreas. Note that a Region is the only kind of Object which can be located at itself. Note too that Region is not a subclass of SelfConnectedObject, because some Regions, e.g. archipelagos, have parts which are not connected with one another.")
+
+	(if
+		(instance REGION Region)
+		(exists
+			(PHYS)
+			(located PHYS REGION)))
+
+	(subclass Collection Object)
+	(disjoint Collection SelfConnectedObject)
+	(documentation Collection EnglishLanguage "Collections have members like Classes, but, unlike Classes, they have a position in space-time and members can be added and subtracted without thereby changing the identity of the Collection. Some examples are toolkits, football teams, and flocks of sheep.")
+
+	(if
+		(instance COLL Collection)
+		(exists
+			(OBJ)
+			(member OBJ COLL)))
+
+	(subrelation member part)
+	(instance member AsymmetricRelation)
+	(instance member IntransitiveRelation)
+	(domain member 1 SelfConnectedObject)
+	(domain member 2 Collection)
+	(relatedInternalConcept member instance)
+	(relatedInternalConcept member element)
+	(documentation member EnglishLanguage "A specialized common sense notion of part for uniform parts of Collections. For example, each sheep in a flock of sheep would have the relationship of member to the flock.")
+	(instance subCollection BinaryPredicate)
+	(instance subCollection PartialOrderingRelation)
+	(domain subCollection 1 Collection)
+	(domain subCollection 2 Collection)
+	(documentation subCollection EnglishLanguage "(subCollection COLL1 COLL2) means that the Collection COLL1 is a proper part of the Collection COLL2.")
+
+	(iff
+		(subCollection COLL1 COLL2) 
+		(forall
+			(MEMBER)
+			(if
+				(member MEMBER COLL1)
+				(member MEMBER COLL2))))
+				
+				
+******************************line 945: natural language, string, character
+
+
+******************************line 2617-2694
+
+(instance partlyLocated SpatialRelation)
+	(instance partlyLocated BinaryPredicate)
+	(instance partlyLocated CaseRole)
+	(domain partlyLocated 1 Physical)
+	(domain partlyLocated 2 Object)
+	(documentation partlyLocated EnglishLanguage "(partlyLocated THING OBJ) means that the instance of Physical THING is at least partially located at OBJ. For example, Istanbul is partly located in Asia and partly located in Europe. Note that partlyLocated is the most basic localization relation: located is an immediate subrelation of partlyLocated and exactlyLocated is an immediate subrelation of located.")
+
+	(if
+		(and
+			(instance OBJ1 Object)
+			(partlyLocated OBJ1 OBJ2))
+		(overlapsSpatially OBJ1 OBJ2))
+
+	(if
+		(and
+			(instance OBJ1 Object)
+			(partlyLocated OBJ1 OBJ2))
+		(exists
+			(SUB)
+			(and
+				(part SUB OBJ1)
+				(located SUB OBJ2))))
+
+	(if
+		(origin PROCESS LOC)
+		(partlyLocated PROCESS LOC))
+
+	(if
+		(destination PROCESS LOC)
+		(partlyLocated PROCESS LOC))
+
+	(instance located AntisymmetricRelation)
+	(instance located TransitiveRelation)
+	(subrelation located partlyLocated)
+	(documentation located EnglishLanguage "(located PHYS OBJ) means that PHYS is partlyLocated at OBJ, and there is no part or subProcess of PHYS that is not located at OBJ.")
+
+	(if
+		(located OBJ1 OBJ2)
+		(forall
+			(SUB)
+			(if
+				(part SUB OBJ1)
+				(located SUB OBJ2))))
+
+	(if
+		(located PROCESS OBJ)
+		(forall
+			(SUB)
+			(if
+				(subProcess SUB PROCESS)
+				(located SUB OBJ))))
+
+	(subrelation exactlyLocated located)
+	(documentation exactlyLocated EnglishLanguage "The actual, minimal location of an Object. This is a subrelation of the more general Predicate located.")
+
+	(if
+		(exactlyLocated OBJ REGION)
+		(not
+			(exists
+				(OTHEROBJ)
+				(and
+					(exactlyLocated OTHEROBJ REGION)
+					(not
+						(=
+							OTHEROBJ
+							OBJ))))))
+
+	(instance between SpatialRelation)
+	(instance between TernaryPredicate)
+	(domain between 1 Object)
+	(domain between 2 Object)
+	(domain between 3 Object)
+	(documentation between EnglishLanguage "(between OBJ1 OBJ2 OBJ3) means that OBJ2 is spatially located between OBJ1 and OBJ3. Note that this implies that OBJ2 is directly between OBJ1 and OBJ3, i.e. the projections of OBJ1 and OBJ3 overlap with OBJ2.")
+
+	(if
+		(between END1 MID END2)
+		(between END2 MID END1))
+
+*****************************************time, trenary cross
+*****************************************line 6424-6914
+
+(cl-text "Mereotopology"
+	(cl-imports "Structural Ontology")
+	(cl-imports "Base Ontology")
+	(instance connected BinaryPredicate)
+	(instance connected SpatialRelation)
+	(instance connected ReflexiveRelation)
+	(instance connected SymmetricRelation)
+	(domain connected 1 Object)
+	(domain connected 2 Object)
+	(documentation connected EnglishLanguage "(connected OBJ1 OBJ2) means that OBJ1 meetsSpatially OBJ2 or that OBJ1 overlapsSpatially OBJ2.")
+
+	(if
+		(connected OBJ1 OBJ2)
+		(or
+			(meetsSpatially OBJ1 OBJ2)
+			(overlapsSpatially OBJ1 OBJ2)))
+
+	(iff
+		(instance OBJ SelfConnectedObject) 
+		(forall
+			(PART1 PART2)
+			(if
+				(=
+					OBJ
+					(MereologicalSumFn PART1 PART2))
+				(connected PART1 PART2))))
+
+	(instance connects SpatialRelation)
+	(instance connects TernaryPredicate)
+	(domain connects 1 SelfConnectedObject)
+	(domain connects 2 SelfConnectedObject)
+	(domain connects 3 SelfConnectedObject)
+	(documentation connects EnglishLanguage "The relationship between three things, when one of the three things connects the other two. More formally, (connects OBJ1 OBJ2 OBJ3) means that (connected OBJ1 OBJ2) and (connected OBJ1 OBJ3) and not (connected OBJ2 OBJ3).")
+
+	(iff
+		(connects OBJ1 OBJ2 OBJ3) 
+		(between OBJ2 OBJ1 OBJ3))
+
+	(iff
+		(connects OBJ1 OBJ2 OBJ3) 
+		(and
+			(connected OBJ1 OBJ2)
+			(connected OBJ1 OBJ3)
+			(not
+				(connected OBJ2 OBJ3))))
+
+	(if
+		(connects ARC NODE1 NODE2)
+		(connects ARC NODE2 NODE1))
+
+	(subrelation meetsSpatially connected)
+	(instance meetsSpatially IrreflexiveRelation)
+	(instance meetsSpatially SymmetricRelation)
+	(disjointRelation meetsSpatially overlapsSpatially)
+	(documentation meetsSpatially EnglishLanguage "(meetsSpatially OBJ1 OBJ2) means that OBJ1 and OBJ2 are connected but that neither OBJ1 nor OBJ2 overlapsSpatially the other.")
+	(subrelation overlapsSpatially connected)
+	(instance overlapsSpatially ReflexiveRelation)
+	(instance overlapsSpatially SymmetricRelation)
+	(documentation overlapsSpatially EnglishLanguage "(overlapsSpatially OBJ1 OBJ2) means that the Objects OBJ1 and OBJ2 have some parts in common. This is a reflexive and symmetric (but not transitive) relation.")
+
+	(iff
+		(overlapsSpatially OBJ1 OBJ2) 
+		(exists
+			(OBJ3)
+			(and
+				(part OBJ3 OBJ1)
+				(part OBJ3 OBJ2))))
+
+	(if
+		(and
+			(member OBJ1 COLL)
+			(member OBJ2 COLL)
+			(not
+				(=
+					OBJ1
+					OBJ2)))
+		(not
+			(overlapsSpatially OBJ1 OBJ2)))
+
+	(if
+		(and
+			(instance REL CaseRole)
+			(instance OBJ Object)
+			(REL PROCESS OBJ))
+		(exists
+			(TIME)
+			(overlapsSpatially (WhereFn PROCESS TIME) OBJ)))
+
+	(instance overlapsPartially SymmetricRelation)
+	(instance overlapsPartially IrreflexiveRelation)
+	(subrelation overlapsPartially overlapsSpatially)
+	(documentation overlapsPartially EnglishLanguage "(overlapsPartially OBJ1 OBJ2) means that OBJ1 and OBJ2 have part(s) in common, but neither OBJ1 nor OBJ2 is a part of the other.")
+
+	(iff
+		(overlapsPartially OBJ1 OBJ2) 
+		(and
+			(not
+				(part OBJ1 OBJ2))
+			(not
+				(part OBJ2 OBJ1))
+			(exists
+				(OBJ3)
+				(and
+					(part OBJ3 OBJ1)
+					(part OBJ3 OBJ2)))))
+
+	(subrelation superficialPart part)
+	(instance superficialPart IrreflexiveRelation)
+	(instance superficialPart TransitiveRelation)
+	(documentation superficialPart EnglishLanguage "(superficialPart OBJ1 OBJ2) means that OBJ1 is a part of OBJ2 that has no interior parts of its own (or, intuitively, that only overlaps those parts of OBJ2 that are externally connected with the mereological complement of OBJ2). This too is a transitive relation closed under MereologicalSumFn and MereologicalProductFn.")
+
+	(if
+		(superficialPart OBJ1 OBJ2)
+		(and
+			(not
+				(interiorPart OBJ1 OBJ2))
+			(not
+				(exists
+					(OBJ3)
+					(interiorPart OBJ3 OBJ1)))))
+
+	(instance surface AsymmetricRelation)
+	(subrelation surface superficialPart)
+	(domain surface 1 SelfConnectedObject)
+	(domain surface 2 SelfConnectedObject)
+	(documentation surface EnglishLanguage "(surface OBJ1 OBJ2) means that OBJ1 is a maximally connected superficialPart of OBJ2. Note that some SelfConnectedObjects have more than one surface, e.g. a hollow object like a tennis ball has both an inner and an outer surface.")
+
+	(if
+		(surface OBJ1 OBJ2)
+		(forall
+			(OBJ3)
+			(if
+				(superficialPart OBJ3 OBJ2)
+				(part OBJ3 OBJ1))))
+
+	(subrelation interiorPart part)
+	(instance interiorPart AsymmetricRelation)
+	(instance interiorPart TransitiveRelation)
+	(documentation interiorPart EnglishLanguage "(interiorPart OBJ1 OBJ2) means that OBJ1 is part OBJ2 and there is no overlap between OBJ1 and any superficialPart OBJ2.")
+
+	(if
+		(interiorPart OBJ1 OBJ2)
+		(forall
+			(PART)
+			(if
+				(superficialPart PART OBJ2)
+				(not
+					(overlapsSpatially OBJ1 PART)))))
+
+	(subrelation bottom superficialPart)
+	(domain bottom 1 SelfConnectedObject)
+	(domain bottom 2 SelfConnectedObject)
+	(documentation bottom EnglishLanguage "(bottom BOTTOM OBJECT) holds if BOTTOM is the lowest or deepest maximal superficial part of OBJECT.")
+
+	(if
+		(and
+			(bottom BOTTOM OBJECT)
+			(part PART OBJECT)
+			(not
+				(connected PART BOTTOM)))
+		(orientation PART BOTTOM Above))
+
+	(subrelation top superficialPart)
+	(domain top 1 SelfConnectedObject)
+	(domain top 2 SelfConnectedObject)
+	(documentation top EnglishLanguage "(top TOP OBJECT) means that TOP is the highest maximal superficial part of OBJECT.")
+
+	(if
+		(and
+			(top TOP OBJECT)
+			(part PART OBJECT)
+			(not
+				(connected PART TOP)))
+		(orientation PART TOP Below))
+
+	(subrelation side superficialPart)
+	(domain side 1 SelfConnectedObject)
+	(domain side 2 SelfConnectedObject)
+	(documentation side EnglishLanguage "(side SIDE OBJECT) means that SIDE is a side of the object, as opposed to the top or bottom.")
+
+	(if
+		(and
+			(side SIDE OBJECT)
+			(part PART OBJECT)
+			(not
+				(connected PART SIDE)))
+		(exists
+			(DIRECT)
+			(orientation SIDE PART DIRECT)))
+
+	(if
+		(and
+			(top TOP O)
+			(side S O))
+		(not
+			(=
+				TOP
+				S)))
+
+	(iff
+		(width OBJECT WIDTH) 
+		(exists
+			(SIDE1 SIDE2)
+			(and
+				(side SIDE1 OBJECT)
+				(side SIDE2 OBJECT)
+				(distance SIDE1 SIDE2 WIDTH))))
+
+	(if
+		(and
+			(height OBJECT HEIGHT)
+			(top TOP OBJECT)
+			(bottom BOTTOM OBJECT))
+		(distance TOP BOTTOM HEIGHT))
+
+	(instance MereologicalSumFn SpatialRelation)
+	(instance MereologicalSumFn BinaryFunction)
+	(instance MereologicalSumFn TotalValuedRelation)
+	(domain MereologicalSumFn 1 Object)
+	(domain MereologicalSumFn 2 Object)
+	(range MereologicalSumFn Object)
+	(relatedInternalConcept MereologicalSumFn MereologicalProductFn)
+	(relatedInternalConcept MereologicalSumFn MereologicalDifferenceFn)
+	(documentation MereologicalSumFn EnglishLanguage "(MereologicalSumFn OBJ1 OBJ2) denotes the Object consisting of the parts which belong to either OBJ1 or OBJ2.")
+
+	(if
+		(=
+			OBJ3
+			(MereologicalSumFn OBJ1 OBJ2))
+		(forall
+			(PART)
+			(iff
+				(part PART OBJ3) 
+				(or
+					(part PART OBJ1)
+					(part PART OBJ2)))))
+
+	(instance MereologicalProductFn SpatialRelation)
+	(instance MereologicalProductFn BinaryFunction)
+	(instance MereologicalProductFn TotalValuedRelation)
+	(domain MereologicalProductFn 1 Object)
+	(domain MereologicalProductFn 2 Object)
+	(range MereologicalProductFn Object)
+	(relatedInternalConcept MereologicalProductFn MereologicalDifferenceFn)
+	(documentation MereologicalProductFn EnglishLanguage "(MereologicalProductFn OBJ1 OBJ2) denotes the Object consisting of the parts which belong to both OBJ1 and OBJ2.")
+
+	(if
+		(=
+			OBJ3
+			(MereologicalProductFn OBJ1 OBJ2))
+		(forall
+			(PART)
+			(iff
+				(part PART OBJ3) 
+				(and
+					(part PART OBJ1)
+					(part PART OBJ2)))))
+
+	(instance MereologicalDifferenceFn SpatialRelation)
+	(instance MereologicalDifferenceFn BinaryFunction)
+	(instance MereologicalDifferenceFn TotalValuedRelation)
+	(domain MereologicalDifferenceFn 1 Object)
+	(domain MereologicalDifferenceFn 2 Object)
+	(range MereologicalDifferenceFn Object)
+	(documentation MereologicalDifferenceFn EnglishLanguage "(MereologicalDifferenceFn OBJ1 OBJ2) denotes the Object consisting of the parts which belong to OBJ1 and not to OBJ2.")
+
+	(if
+		(=
+			OBJ3
+			(MereologicalDifferenceFn OBJ1 OBJ2))
+		(forall
+			(PART)
+			(iff
+				(properPart PART OBJ3) 
+				(and
+					(properPart PART OBJ1)
+					(not
+						(properPart PART OBJ2))))))
+
+	(instance hole BinaryPredicate)
+	(instance hole SpatialRelation)
+	(instance hole AsymmetricRelation)
+	(domain hole 1 Hole)
+	(domain hole 2 SelfConnectedObject)
+	(documentation hole EnglishLanguage "(hole HOLE OBJ) means that HOLE is a Hole in OBJ. A Hole is a fillable body located at the surface an Object.")
+	(subclass Hole Region)
+	(documentation Hole EnglishLanguage "A hole is an immaterial body located at the surface of an Object. Since every Hole is ontologically dependent on its host (i.e., the object in which it is a hole), being a Hole is defined as being a hole in something. Note that two Holes may occupy the same region, or part of the same region, without sharing any parts. Any two hosts of a hole have a common proper part that entirely hosts the hole. A common host of two holes hosts all parts of the sum of those holes. Any object that includes the host of a hole is a host of that hole, unless its parts also include parts of that very hole. Overlapping holes have overlapping hosts. No hole is atomic. Holes are connected with their hosts. No hole can have a proper part that is externally connected with exactly the same things as the hole itself.")
+
+	(iff
+		(instance HOLE Hole) 
+		(exists
+			(OBJ)
+			(hole HOLE OBJ)))
+
+	(if
+		(hole HOLE OBJ)
+		(not
+			(instance OBJ Hole)))
+
+	(if
+		(hole HOLE OBJ)
+		(not
+			(overlapsSpatially HOLE OBJ)))
+
+	(if
+		(and
+			(hole HOLE OBJ1)
+			(hole HOLE OBJ2))
+		(exists
+			(OBJ3)
+			(and
+				(properPart OBJ3 (MereologicalProductFn OBJ1 OBJ2))
+				(hole HOLE OBJ3))))
+
+	(if
+		(and
+			(hole HOLE1 OBJ)
+			(hole HOLE2 OBJ))
+		(forall
+			(HOLE3)
+			(if
+				(part HOLE3 (MereologicalSumFn HOLE1 HOLE2))
+				(hole HOLE3 OBJ))))
+
+	(if
+		(and
+			(hole HOLE OBJ1)
+			(part OBJ1 OBJ2))
+		(or
+			(overlapsSpatially HOLE OBJ2)
+			(hole HOLE OBJ2)))
+
+	(if
+		(and
+			(hole HOLE1 OBJ1)
+			(hole HOLE2 OBJ2)
+			(overlapsSpatially HOLE1 HOLE2))
+		(overlapsSpatially OBJ1 OBJ2))
+
+	(if
+		(instance HOLE1 Hole)
+		(exists
+			(HOLE2)
+			(properPart HOLE2 HOLE1)))
+
+	(instance HoleHostFn SpatialRelation)
+	(instance HoleHostFn UnaryFunction)
+	(instance HoleHostFn TotalValuedRelation)
+	(instance HoleHostFn AsymmetricRelation)
+	(domain HoleHostFn 1 Hole)
+	(range HoleHostFn Object)
+	(documentation HoleHostFn EnglishLanguage "A UnaryFunction that maps a Hole to the Object which is its principal host. The principle host of a Hole is its maximally connected host (a notion taken here to be defined only when the argument is a hole).")
+
+	(if
+		(hole HOLE OBJ)
+		(connected HOLE OBJ))
+
+	(if
+		(and
+			(instance HOLE1 Hole)
+			(properPart HOLE2 HOLE1))
+		(exists
+			(OBJ)
+			(and
+				(meetsSpatially HOLE1 OBJ)
+				(not
+					(meetsSpatially HOLE2 OBJ)))))
+
+	(instance Fillable ShapeAttribute)
+	(documentation Fillable EnglishLanguage "Something is Fillable if it can be filled by something else. Note that 'filled' here means perfectly filled. Something is fillable just in case it is part of a hole, i.e., fillability is an exclusive property of holes and their parts.")
+
+	(if
+		(exists
+			(TIME)
+			(holdsDuring TIME (fills OBJ HOLE)))
+		(attribute HOLE Fillable))
+
+	(iff
+		(attribute HOLE1 Fillable) 
+		(exists
+			(HOLE2)
+			(and
+				(instance HOLE2 Hole)
+				(part HOLE1 HOLE2))))
+
+	(subrelation partiallyFills located)
+	(instance partiallyFills SpatialRelation)
+	(instance partiallyFills AsymmetricRelation)
+	(domain partiallyFills 1 Object)
+	(domain partiallyFills 2 Hole)
+	(documentation partiallyFills EnglishLanguage "(partiallyFills OBJ HOLE) means that OBJ completelyFills some part of HOLE. Note that if (partiallyFills OBJ1 HOLE) and (part OBJ1 OBJ2), then (partiallyFills OBJ2 HOLE). Note too that a partial filler need not be wholly inside a hole (it may stick out), which means that every complete filler also qualifies as (is a limit case of) a partial one.")
+
+	(if
+		(partiallyFills OBJ HOLE1)
+		(exists
+			(HOLE2)
+			(and
+				(part HOLE2 HOLE1)
+				(completelyFills OBJ HOLE2))))
+
+	(instance properlyFills AsymmetricRelation)
+	(subrelation properlyFills partiallyFills)
+	(domain properlyFills 1 Object)
+	(domain properlyFills 2 Hole)
+	(documentation properlyFills EnglishLanguage "(properlyFills OBJ HOLE) means that HOLE is properly (though perhaps incompletely) filled by OBJ, i.e. some part of HOLE is perfectly filled by OBJ. Note that properlyFills is the dual of completelyFills, and is so related to partiallyFills that OBJ properlyFills HOLE just in case OBJ partiallyFills every part of HOLE. (Thus, every perfect filler is both complete and proper in this sense). Every hole is connected with everything with which a proper filler of the hole is connected. Every proper part of a perfect filler of (a part of) a hole properly fills (that part of) that hole.")
+
+	(if
+		(properlyFills OBJ HOLE1)
+		(exists
+			(HOLE2)
+			(and
+				(part HOLE2 HOLE1)
+				(fills OBJ HOLE2))))
+
+	(instance completelyFills AsymmetricRelation)
+	(subrelation completelyFills partiallyFills)
+	(documentation completelyFills EnglishLanguage "(completelyFills OBJ HOLE) means that some part of the Object OBJ fills the Hole HOLE. Note that if (completelyFills OBJ1 HOLE) and (part OBJ1 OBJ2), then (completelyFills OBJ2 HOLE). A complete filler of (a part of) a hole is connected with everything with which (that part of) the hole itself is connected. A perfect filler of (a part of) a hole completely fills every proper part of (that part of) that hole.")
+
+	(if
+		(completelyFills OBJ1 HOLE)
+		(exists
+			(OBJ2)
+			(and
+				(part OBJ2 OBJ1)
+				(fills OBJ2 HOLE))))
+
+	(instance fills AsymmetricRelation)
+	(subrelation fills completelyFills)
+	(subrelation fills properlyFills)
+	(domain fills 1 Object)
+	(domain fills 2 Hole)
+	(relatedInternalConcept fills Fillable)
+	(documentation fills EnglishLanguage "Holes can be filled. (fills OBJ HOLE) means that the Object OBJ fills the Hole HOLE. Note that fills here means perfectly filled. Perfect fillers and fillable entities have no parts in common (rather, they may occupy the same spatial region).")
+
+	(if
+		(and
+			(fills OBJ1 HOLE)
+			(attribute OBJ2 Fillable))
+		(not
+			(overlapsSpatially OBJ1 OBJ2)))
+
+	(if
+		(completelyFills OBJ1 HOLE)
+		(forall
+			(OBJ2)
+			(if
+				(connected OBJ2 HOLE)
+				(connected OBJ2 OBJ1))))
+
+	(if
+		(and
+			(properlyFills OBJ1 HOLE)
+			(connected OBJ2 OBJ1))
+		(connected HOLE OBJ2))
+
+	(if
+		(and
+			(fills OBJ HOLE1)
+			(properPart HOLE2 HOLE1))
+		(completelyFills OBJ HOLE2))
+
+	(if
+		(and
+			(fills OBJ1 HOLE)
+			(properPart OBJ2 OBJ1))
+		(properlyFills OBJ2 HOLE))
+
+	(instance HoleSkinFn SpatialRelation)
+	(instance HoleSkinFn UnaryFunction)
+	(instance HoleSkinFn TotalValuedRelation)
+	(instance HoleSkinFn AsymmetricRelation)
+	(domain HoleSkinFn 1 Hole)
+	(range HoleSkinFn Object)
+	(documentation HoleSkinFn EnglishLanguage "A UnaryFunction that maps a Hole to the skin of the Hole. The skin of a Hole is the fusion of those superficial parts (see superficialPart) of the Hole's principal host (see HoleHostFn) with which the Hole is externally connected.")
+
+	(if
+		(=
+			OBJ1
+			(HoleSkinFn HOLE))
+		(forall
+			(OBJ2)
+			(iff
+				(overlapsSpatially OBJ2 OBJ1) 
+				(exists
+					(OBJ3)
+					(and
+						(superficialPart OBJ3 (HoleHostFn HOLE))
+						(meetsSpatially HOLE OBJ3)
+						(overlapsSpatially OBJ2 OBJ3))))))
+
+)
+
+**************************objects imports mereotopology
+**************************geopraphicSubregion is subrelation of properPart and located
+**************************examples: area, landarea, island, geographical, human, linguistic, 
+**************************water/cloud, man/human, cell/part, resident/building
+**************************temporal part
