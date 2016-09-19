@@ -29,6 +29,7 @@
 
 	(subclass Object Physical)
 	(documentation Object EnglishLanguage "Corresponds roughly to the class of ordinary objects. Examples include normal physical objects, geographical regions, and locations of Processes, the complement of Objects in the Physical class. In a 4D ontology, an Object is something whose spatiotemporal extent is thought of as dividing into spatial parts roughly parallel to the time-axis.")
+
 	(subclass SelfConnectedObject Object)
 	(documentation SelfConnectedObject EnglishLanguage "A SelfConnectedObject is any Object that does not consist of two or more disconnected parts.")
 	(instance FrontFn SpatialRelation)
